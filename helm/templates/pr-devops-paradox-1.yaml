@@ -16,10 +16,10 @@ spec:
         image:
           tag: "1.71"
         ingress:
-          host: "pr-devops-paradox.34.139.2.87"
+          host: "pr-devops-paradox.34.139.2.87.nip.io"
       version: v3
   destination:
-    namespace: pr-devops-paradox
+    namespace: pr-devops-paradox-1
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
