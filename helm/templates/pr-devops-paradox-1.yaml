@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pr-devops-paradox-1
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: previews
+  source:
+    path: helm
+    repoURL: https://github.com/vfarcic/devops-paradox.git
+    targetRevision: HEAD
+    helm:
+      values: |
+        image:
+          tag: "1.71"
+        ingress:
+          host: "pr-devops-paradox.34.139.2.87"
+      version: v3
+  destination:
+    namespace: pr-devops-paradox
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
