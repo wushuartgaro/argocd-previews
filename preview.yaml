@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pr-devops-toolkit-1 
+  name: "{{.APP_ID}}"
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -14,12 +14,12 @@ spec:
     helm:
       values: |
         image:
-          tag: "2.6.2"
+          tag: "{{.IMAGE_TAG}}"
         ingress:
-          host: "pr-devops-toolkit-1.34.139.2.87.nip.io"
+          host: "{{.HOSTNAME}}"
       version: v3
   destination:
-    namespace: pr-devops-toolkit-1
+    namespace: "{{.APP_ID}}"
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
